@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.AddressesMapper">
+    
+    <resultMap type="Addresses" id="AddressesResult">
+        <result property="addressId"    column="address_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="addressType"    column="address_type"    />
+        <result property="recipientName"    column="recipient_name"    />
+        <result property="phone"    column="phone"    />
+        <result property="detailedAddress"    column="detailed_address"    />
+        <result property="isDefault"    column="is_default"    />
+        <result property="status"    column="status"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updatedAt"    column="updated_at"    />
+        <result property="pickupCoordinates"    column="pickup_coordinates"    />
+        <result property="deliveryCoordinates"    column="delivery_coordinates"    />
+    </resultMap>
+
+    <sql id="selectAddressesVo">
+        select address_id, user_id, address_type, recipient_name, phone, detailed_address, is_default, status, created_at, updated_at, pickup_coordinates, delivery_coordinates from addresses
+    </sql>
+
+    <select id="selectAddressesList" parameterType="Addresses" resultMap="AddressesResult">
+        <include refid="selectAddressesVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="addressType != null "> and address_type = #{addressType}</if>
+            <if test="recipientName != null  and recipientName != ''"> and recipient_name like concat('%', #{recipientName}, '%')</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="detailedAddress != null  and detailedAddress != ''"> and detailed_address = #{detailedAddress}</if>
+            <if test="isDefault != null "> and is_default = #{isDefault}</if>
+            <if test="status != null "> and status = #{status}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+            <if test="updatedAt != null "> and updated_at = #{updatedAt}</if>
+            <if test="pickupCoordinates != null  and pickupCoordinates != ''"> and pickup_coordinates = #{pickupCoordinates}</if>
+            <if test="deliveryCoordinates != null  and deliveryCoordinates != ''"> and delivery_coordinates = #{deliveryCoordinates}</if>
+        </where>
+    </select>
+    
+    <select id="selectAddressesByAddressId" parameterType="Long" resultMap="AddressesResult">
+        <include refid="selectAddressesVo"/>
+        where address_id = #{addressId}
+    </select>
+
+    <insert id="insertAddresses" parameterType="Addresses" useGeneratedKeys="true" keyProperty="addressId">
+        insert into addresses
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="addressType != null">address_type,</if>
+            <if test="recipientName != null and recipientName != ''">recipient_name,</if>
+            <if test="phone != null and phone != ''">phone,</if>
+            <if test="detailedAddress != null and detailedAddress != ''">detailed_address,</if>
+            <if test="isDefault != null">is_default,</if>
+            <if test="status != null">status,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="pickupCoordinates != null and pickupCoordinates != ''">pickup_coordinates,</if>
+            <if test="deliveryCoordinates != null and deliveryCoordinates != ''">delivery_coordinates,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="addressType != null">#{addressType},</if>
+            <if test="recipientName != null and recipientName != ''">#{recipientName},</if>
+            <if test="phone != null and phone != ''">#{phone},</if>
+            <if test="detailedAddress != null and detailedAddress != ''">#{detailedAddress},</if>
+            <if test="isDefault != null">#{isDefault},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="pickupCoordinates != null and pickupCoordinates != ''">#{pickupCoordinates},</if>
+            <if test="deliveryCoordinates != null and deliveryCoordinates != ''">#{deliveryCoordinates},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAddresses" parameterType="Addresses">
+        update addresses
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="addressType != null">address_type = #{addressType},</if>
+            <if test="recipientName != null and recipientName != ''">recipient_name = #{recipientName},</if>
+            <if test="phone != null and phone != ''">phone = #{phone},</if>
+            <if test="detailedAddress != null and detailedAddress != ''">detailed_address = #{detailedAddress},</if>
+            <if test="isDefault != null">is_default = #{isDefault},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="pickupCoordinates != null and pickupCoordinates != ''">pickup_coordinates = #{pickupCoordinates},</if>
+            <if test="deliveryCoordinates != null and deliveryCoordinates != ''">delivery_coordinates = #{deliveryCoordinates},</if>
+        </trim>
+        where address_id = #{addressId}
+    </update>
+
+    <delete id="deleteAddressesByAddressId" parameterType="Long">
+        delete from addresses where address_id = #{addressId}
+    </delete>
+
+    <delete id="deleteAddressesByAddressIds" parameterType="String">
+        delete from addresses where address_id in 
+        <foreach item="addressId" collection="array" open="(" separator="," close=")">
+            #{addressId}
+        </foreach>
+    </delete>
+</mapper>

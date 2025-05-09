@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.CouriersMapper">
+    
+    <resultMap type="Couriers" id="CouriersResult">
+        <result property="courierId"    column="courier_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="idCard"    column="id_card"    />
+        <result property="idCardFront"    column="id_card_front"    />
+        <result property="idCardBack"    column="id_card_back"    />
+        <result property="studentCard"    column="student_card"    />
+        <result property="creditScore"    column="credit_score"    />
+        <result property="totalOrders"    column="total_orders"    />
+        <result property="status"    column="status"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updatedAt"    column="updated_at"    />
+    </resultMap>
+
+    <sql id="selectCouriersVo">
+        select courier_id, user_id, id_card, id_card_front, id_card_back, student_card, credit_score, total_orders, status, created_at, updated_at from couriers
+    </sql>
+
+    <select id="selectCouriersList" parameterType="Couriers" resultMap="CouriersResult">
+        <include refid="selectCouriersVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="idCard != null  and idCard != ''"> and id_card = #{idCard}</if>
+            <if test="idCardFront != null  and idCardFront != ''"> and id_card_front = #{idCardFront}</if>
+            <if test="idCardBack != null  and idCardBack != ''"> and id_card_back = #{idCardBack}</if>
+            <if test="studentCard != null  and studentCard != ''"> and student_card = #{studentCard}</if>
+            <if test="creditScore != null "> and credit_score = #{creditScore}</if>
+            <if test="totalOrders != null "> and total_orders = #{totalOrders}</if>
+            <if test="status != null "> and status = #{status}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+            <if test="updatedAt != null "> and updated_at = #{updatedAt}</if>
+        </where>
+    </select>
+    
+    <select id="selectCouriersByCourierId" parameterType="Long" resultMap="CouriersResult">
+        <include refid="selectCouriersVo"/>
+        where courier_id = #{courierId}
+    </select>
+
+    <insert id="insertCouriers" parameterType="Couriers" useGeneratedKeys="true" keyProperty="courierId">
+        insert into couriers
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="idCard != null and idCard != ''">id_card,</if>
+            <if test="idCardFront != null">id_card_front,</if>
+            <if test="idCardBack != null">id_card_back,</if>
+            <if test="studentCard != null">student_card,</if>
+            <if test="creditScore != null">credit_score,</if>
+            <if test="totalOrders != null">total_orders,</if>
+            <if test="status != null">status,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="idCard != null and idCard != ''">#{idCard},</if>
+            <if test="idCardFront != null">#{idCardFront},</if>
+            <if test="idCardBack != null">#{idCardBack},</if>
+            <if test="studentCard != null">#{studentCard},</if>
+            <if test="creditScore != null">#{creditScore},</if>
+            <if test="totalOrders != null">#{totalOrders},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCouriers" parameterType="Couriers">
+        update couriers
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="idCard != null and idCard != ''">id_card = #{idCard},</if>
+            <if test="idCardFront != null">id_card_front = #{idCardFront},</if>
+            <if test="idCardBack != null">id_card_back = #{idCardBack},</if>
+            <if test="studentCard != null">student_card = #{studentCard},</if>
+            <if test="creditScore != null">credit_score = #{creditScore},</if>
+            <if test="totalOrders != null">total_orders = #{totalOrders},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+        </trim>
+        where courier_id = #{courierId}
+    </update>
+
+    <delete id="deleteCouriersByCourierId" parameterType="Long">
+        delete from couriers where courier_id = #{courierId}
+    </delete>
+
+    <delete id="deleteCouriersByCourierIds" parameterType="String">
+        delete from couriers where courier_id in 
+        <foreach item="courierId" collection="array" open="(" separator="," close=")">
+            #{courierId}
+        </foreach>
+    </delete>
+</mapper>

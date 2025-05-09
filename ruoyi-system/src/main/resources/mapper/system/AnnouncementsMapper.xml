@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.AnnouncementsMapper">
+    
+    <resultMap type="Announcements" id="AnnouncementsResult">
+        <result property="announcementId"    column="announcement_id"    />
+        <result property="title"    column="title"    />
+        <result property="content"    column="content"    />
+        <result property="adminId"    column="admin_id"    />
+        <result property="announcementType"    column="announcement_type"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="priority"    column="priority"    />
+        <result property="status"    column="status"    />
+        <result property="targetAudience"    column="target_audience"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updatedAt"    column="updated_at"    />
+    </resultMap>
+
+    <sql id="selectAnnouncementsVo">
+        select announcement_id, title, content, admin_id, announcement_type, start_time, end_time, priority, status, target_audience, created_at, updated_at from announcements
+    </sql>
+
+    <select id="selectAnnouncementsList" parameterType="Announcements" resultMap="AnnouncementsResult">
+        <include refid="selectAnnouncementsVo"/>
+        <where>  
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="adminId != null "> and admin_id = #{adminId}</if>
+            <if test="announcementType != null "> and announcement_type = #{announcementType}</if>
+            <if test="startTime != null "> and start_time = #{startTime}</if>
+            <if test="endTime != null "> and end_time = #{endTime}</if>
+            <if test="priority != null "> and priority = #{priority}</if>
+            <if test="status != null "> and status = #{status}</if>
+            <if test="targetAudience != null "> and target_audience = #{targetAudience}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+            <if test="updatedAt != null "> and updated_at = #{updatedAt}</if>
+        </where>
+    </select>
+    
+    <select id="selectAnnouncementsByAnnouncementId" parameterType="Long" resultMap="AnnouncementsResult">
+        <include refid="selectAnnouncementsVo"/>
+        where announcement_id = #{announcementId}
+    </select>
+
+    <insert id="insertAnnouncements" parameterType="Announcements" useGeneratedKeys="true" keyProperty="announcementId">
+        insert into announcements
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null and title != ''">title,</if>
+            <if test="content != null and content != ''">content,</if>
+            <if test="adminId != null">admin_id,</if>
+            <if test="announcementType != null">announcement_type,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="priority != null">priority,</if>
+            <if test="status != null">status,</if>
+            <if test="targetAudience != null">target_audience,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="content != null and content != ''">#{content},</if>
+            <if test="adminId != null">#{adminId},</if>
+            <if test="announcementType != null">#{announcementType},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="priority != null">#{priority},</if>
+            <if test="status != null">#{status},</if>
+            <if test="targetAudience != null">#{targetAudience},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAnnouncements" parameterType="Announcements">
+        update announcements
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="adminId != null">admin_id = #{adminId},</if>
+            <if test="announcementType != null">announcement_type = #{announcementType},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="priority != null">priority = #{priority},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="targetAudience != null">target_audience = #{targetAudience},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+        </trim>
+        where announcement_id = #{announcementId}
+    </update>
+
+    <delete id="deleteAnnouncementsByAnnouncementId" parameterType="Long">
+        delete from announcements where announcement_id = #{announcementId}
+    </delete>
+
+    <delete id="deleteAnnouncementsByAnnouncementIds" parameterType="String">
+        delete from announcements where announcement_id in 
+        <foreach item="announcementId" collection="array" open="(" separator="," close=")">
+            #{announcementId}
+        </foreach>
+    </delete>
+</mapper>
