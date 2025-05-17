@@ -19,6 +19,7 @@ export function getAnnouncements(announcementId) {
 
 // 新增系统公告(仅管理员可发)
 export function addAnnouncements(data) {
+  console.log(data)
   return request({
     url: '/system/announcements',
     method: 'post',

@@ -98,4 +98,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{courierId}
         </foreach>
     </delete>
+
+    <select id="riderReviewList" parameterType="Couriers" resultMap="CouriersResult">
+        <include refid="selectCouriersVo"/>
+            <where>
+                <if test="courierId != null and courierId != ''">
+                    and courier_id = #{courierId}
+                </if>
+                <if test="userId != null and userId != ''">
+                    and user_id = #{userId}
+                </if>
+            and status = 0
+            </where>
+    </select>
+
+    <update id="riderReviewListAccept" parameterType="Couriers">
+        UPDATE couriers
+        <set>
+            status = 1,updated_at = now()
+        </set>
+        WHERE courier_id = #{courierId}
+    </update>
+
+    <update id="riderReviewListReject" parameterType="Couriers">
+        UPDATE couriers
+        <set>
+            status = 2,updated_at = now()
+        </set>
+        WHERE courier_id = #{courierId}
+    </update>
 </mapper>

@@ -58,4 +58,10 @@ public interface CouriersMapper
      * @return 结果
      */
     public int deleteCouriersByCourierIds(Long[] courierIds);
+
+    List<Couriers> riderReviewList(Couriers couriers);
+
+    int riderReviewListAccept(Couriers couriers);
+
+    int riderReviewListReject(Couriers couriers);
 }

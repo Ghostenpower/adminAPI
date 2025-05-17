@@ -124,7 +124,7 @@
       <el-table-column label="加密密码" align="center" prop="password" />
       <el-table-column label="手机号" align="center" prop="phone" />
       <el-table-column label="邮箱" align="center" prop="email" />
-      <el-table-column label="头像URL" align="center" prop="avatarUrl" />
+      <el-table-column label="头像URL" align="center" prop="avatarUrl" show-overflow-tooltip/>
       <el-table-column label="用户类型(1学生,2商家,3管理员)" align="center" prop="userType" />
       <el-table-column label="状态(0禁用,1正常)" align="center" prop="status" />
       <el-table-column label="创建时间" align="center" prop="createdAt" width="180">
@@ -390,3 +390,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.url-cell {
+  white-space: nowrap;      /* 禁止换行 */
+  overflow: hidden;         /* 隐藏溢出内容 */
+  text-overflow: ellipsis;  /* 超长显示省略号 */
+  max-width: 200px;         /* 限制单元格宽度（可选） */
+}
+</style>

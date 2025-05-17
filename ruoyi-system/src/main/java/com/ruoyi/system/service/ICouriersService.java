@@ -58,4 +58,10 @@ public interface ICouriersService
      * @return 结果
      */
     public int deleteCouriersByCourierId(Long courierId);
+
+    List<Couriers> riderReviewList(Couriers couriers);
+
+    int riderReviewListAccept(Couriers couriers);
+
+    int riderReviewListReject(Couriers couriers);
 }

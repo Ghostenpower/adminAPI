@@ -139,7 +139,7 @@
       <el-table-column label="关联用户ID" align="center" prop="userId" />
       <el-table-column label="店铺名称" align="center" prop="shopName" />
       <el-table-column label="店铺LOGO URL" align="center" prop="shopLogo" />
-      <el-table-column label="营业执照URL" align="center" prop="businessLicense" />
+      <el-table-column label="营业执照URL" align="center" prop="businessLicense" show-overflow-tooltip/>
       <el-table-column label="店铺地址" align="center" prop="address" />
       <el-table-column label="联系电话" align="center" prop="contactPhone" />
       <el-table-column label="营业时间" align="center" prop="businessHours" />

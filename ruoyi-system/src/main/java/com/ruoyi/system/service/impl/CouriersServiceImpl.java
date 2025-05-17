@@ -90,4 +90,19 @@ public class CouriersServiceImpl implements ICouriersService
     {
         return couriersMapper.deleteCouriersByCourierId(courierId);
     }
+
+    @Override
+    public List<Couriers> riderReviewList(Couriers couriers) {
+        return couriersMapper.riderReviewList(couriers);
+    }
+
+    @Override
+    public int riderReviewListAccept(Couriers couriers) {
+        return couriersMapper.riderReviewListAccept(couriers);
+    }
+
+    @Override
+    public int riderReviewListReject(Couriers couriers) {
+        return couriersMapper.riderReviewListReject(couriers);
+    }
 }

@@ -2,84 +2,44 @@
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="发布用户ID" prop="userId">
-        <el-input
-          v-model="queryParams.userId"
-          placeholder="请输入发布用户ID"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+        <el-input v-model="queryParams.userId" placeholder="请输入发布用户ID" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
       <el-form-item label="任务标题" prop="title">
-        <el-input
-          v-model="queryParams.title"
-          placeholder="请输入任务标题"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+        <el-input v-model="queryParams.title" placeholder="请输入任务标题" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
       <el-form-item label="取件地点" prop="pickupLocation">
-        <el-input
-          v-model="queryParams.pickupLocation"
-          placeholder="请输入取件地点"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+        <el-input v-model="queryParams.pickupLocation" placeholder="请输入取件地点" clearable
+          @keyup.enter.native="handleQuery" />
       </el-form-item>
       <el-form-item label="送达地点" prop="deliveryLocation">
-        <el-input
-          v-model="queryParams.deliveryLocation"
-          placeholder="请输入送达地点"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+        <el-input v-model="queryParams.deliveryLocation" placeholder="请输入送达地点" clearable
+          @keyup.enter.native="handleQuery" />
       </el-form-item>
       <el-form-item label="任务截止时间" prop="deadline">
-        <el-date-picker clearable
-          v-model="queryParams.deadline"
-          type="date"
-          value-format="yyyy-MM-dd"
+        <el-date-picker clearable v-model="queryParams.deadline" type="date" value-format="yyyy-MM-dd"
           placeholder="请选择任务截止时间">
         </el-date-picker>
       </el-form-item>
       <el-form-item label="创建时间" prop="createdAt">
-        <el-date-picker clearable
-          v-model="queryParams.createdAt"
-          type="date"
-          value-format="yyyy-MM-dd"
+        <el-date-picker clearable v-model="queryParams.createdAt" type="date" value-format="yyyy-MM-dd"
           placeholder="请选择创建时间">
         </el-date-picker>
       </el-form-item>
       <el-form-item label="更新时间" prop="updatedAt">
-        <el-date-picker clearable
-          v-model="queryParams.updatedAt"
-          type="date"
-          value-format="yyyy-MM-dd"
+        <el-date-picker clearable v-model="queryParams.updatedAt" type="date" value-format="yyyy-MM-dd"
           placeholder="请选择更新时间">
         </el-date-picker>
       </el-form-item>
       <el-form-item label="取件坐标" prop="pickupCoordinates">
-        <el-input
-          v-model="queryParams.pickupCoordinates"
-          placeholder="请输入取件坐标"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+        <el-input v-model="queryParams.pickupCoordinates" placeholder="请输入取件坐标" clearable
+          @keyup.enter.native="handleQuery" />
       </el-form-item>
       <el-form-item label="送达坐标" prop="deliveryCoordinates">
-        <el-input
-          v-model="queryParams.deliveryCoordinates"
-          placeholder="请输入送达坐标"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+        <el-input v-model="queryParams.deliveryCoordinates" placeholder="请输入送达坐标" clearable
+          @keyup.enter.native="handleQuery" />
       </el-form-item>
       <el-form-item label="任务金额" prop="price">
-        <el-input
-          v-model="queryParams.price"
-          placeholder="请输入任务金额"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+        <el-input v-model="queryParams.price" placeholder="请输入任务金额" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
@@ -89,46 +49,20 @@
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-button
-          type="primary"
-          plain
-          icon="el-icon-plus"
-          size="mini"
-          @click="handleAdd"
-          v-hasPermi="['system:tasks:add']"
-        >新增</el-button>
+        <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
+          v-hasPermi="['system:tasks:add']">新增</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button
-          type="success"
-          plain
-          icon="el-icon-edit"
-          size="mini"
-          :disabled="single"
-          @click="handleUpdate"
-          v-hasPermi="['system:tasks:edit']"
-        >修改</el-button>
+        <el-button type="success" plain icon="el-icon-edit" size="mini" :disabled="single" @click="handleUpdate"
+          v-hasPermi="['system:tasks:edit']">修改</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button
-          type="danger"
-          plain
-          icon="el-icon-delete"
-          size="mini"
-          :disabled="multiple"
-          @click="handleDelete"
-          v-hasPermi="['system:tasks:remove']"
-        >删除</el-button>
+        <el-button type="danger" plain icon="el-icon-delete" size="mini" :disabled="multiple" @click="handleDelete"
+          v-hasPermi="['system:tasks:remove']">删除</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button
-          type="warning"
-          plain
-          icon="el-icon-download"
-          size="mini"
-          @click="handleExport"
-          v-hasPermi="['system:tasks:export']"
-        >导出</el-button>
+        <el-button type="warning" plain icon="el-icon-download" size="mini" @click="handleExport"
+          v-hasPermi="['system:tasks:export']">导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -160,37 +94,22 @@
           <span>{{ parseTime(scope.row.updatedAt, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="图片列表url(逗号分隔)" align="center" prop="imagesUrl" />
+      <el-table-column label="图片列表url(逗号分隔)" align="center" prop="imagesUrl" show-overflow-tooltip/>
       <el-table-column label="取件坐标" align="center" prop="pickupCoordinates" />
       <el-table-column label="送达坐标" align="center" prop="deliveryCoordinates" />
       <el-table-column label="任务金额" align="center" prop="price" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-edit"
-            @click="handleUpdate(scope.row)"
-            v-hasPermi="['system:tasks:edit']"
-          >修改</el-button>
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-delete"
-            @click="handleDelete(scope.row)"
-            v-hasPermi="['system:tasks:remove']"
-          >删除</el-button>
+          <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
+            v-hasPermi="['system:tasks:edit']">修改</el-button>
+          <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
+            v-hasPermi="['system:tasks:remove']">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    
-    <pagination
-      v-show="total>0"
-      :total="total"
-      :page.sync="queryParams.pageNum"
-      :limit.sync="queryParams.pageSize"
-      @pagination="getList"
-    />
+
+    <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNum" :limit.sync="queryParams.pageSize"
+      @pagination="getList" />
 
     <!-- 添加或修改跑腿任务对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
@@ -211,10 +130,7 @@
           <el-input v-model="form.deliveryLocation" placeholder="请输入送达地点" />
         </el-form-item>
         <el-form-item label="任务截止时间" prop="deadline">
-          <el-date-picker clearable
-            v-model="form.deadline"
-            type="date"
-            value-format="yyyy-MM-dd"
+          <el-date-picker clearable v-model="form.deadline" type="date" value-format="yyyy-MM-dd"
             placeholder="请选择任务截止时间">
           </el-date-picker>
         </el-form-item>
@@ -222,18 +138,12 @@
           <el-input v-model="form.remark" placeholder="请输入备注信息" />
         </el-form-item>
         <el-form-item label="创建时间" prop="createdAt">
-          <el-date-picker clearable
-            v-model="form.createdAt"
-            type="date"
-            value-format="yyyy-MM-dd"
+          <el-date-picker clearable v-model="form.createdAt" type="date" value-format="yyyy-MM-dd"
             placeholder="请选择创建时间">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="更新时间" prop="updatedAt">
-          <el-date-picker clearable
-            v-model="form.updatedAt"
-            type="date"
-            value-format="yyyy-MM-dd"
+          <el-date-picker clearable v-model="form.updatedAt" type="date" value-format="yyyy-MM-dd"
             placeholder="请选择更新时间">
           </el-date-picker>
         </el-form-item>
@@ -412,7 +322,7 @@ export default {
     // 多选框选中数据
     handleSelectionChange(selection) {
       this.ids = selection.map(item => item.taskId)
-      this.single = selection.length!==1
+      this.single = selection.length !== 1
       this.multiple = !selection.length
     },
     /** 新增按钮操作 */
@@ -454,12 +364,12 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const taskIds = row.taskId || this.ids
-      this.$modal.confirm('是否确认删除跑腿任务编号为"' + taskIds + '"的数据项？').then(function() {
+      this.$modal.confirm('是否确认删除跑腿任务编号为"' + taskIds + '"的数据项？').then(function () {
         return delTasks(taskIds)
       }).then(() => {
         this.getList()
         this.$modal.msgSuccess("删除成功")
-      }).catch(() => {})
+      }).catch(() => { })
     },
     /** 导出按钮操作 */
     handleExport() {

@@ -101,4 +101,24 @@ public class CouriersController extends BaseController
     {
         return toAjax(couriersService.deleteCouriersByCourierIds(courierIds));
     }
+
+    @PreAuthorize("@ss.hasPermi('system:riderReview:list')")
+    @PostMapping("/riderReviewList")
+    public TableDataInfo riderReviewList(@RequestBody Couriers couriers){
+        startPage();
+        List<Couriers> list = couriersService.riderReviewList(couriers);
+        return getDataTable(list);
+    }
+
+    @PreAuthorize("@ss.hasPermi('system:riderReview:list')")
+    @PostMapping("/riderReviewList/accept")
+    public AjaxResult riderReviewListAccept(@RequestBody Couriers couriers){
+    	return toAjax(couriersService.riderReviewListAccept(couriers));
+    }
+
+    @PreAuthorize("@ss.hasPermi('system:riderReview:list')")
+    @PostMapping("/riderReviewList/reject")
+    public AjaxResult riderReviewListReject(@RequestBody Couriers couriers){
+        return toAjax(couriersService.riderReviewListReject(couriers));
+    }
 }

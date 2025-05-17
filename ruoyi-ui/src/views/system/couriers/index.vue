@@ -130,9 +130,9 @@
       <el-table-column label="跑腿员ID" align="center" prop="courierId" />
       <el-table-column label="关联用户ID" align="center" prop="userId" />
       <el-table-column label="身份证号" align="center" prop="idCard" />
-      <el-table-column label="身份证正面照片URL" align="center" prop="idCardFront" />
-      <el-table-column label="身份证反面照片URL" align="center" prop="idCardBack" />
-      <el-table-column label="学生证照片URL" align="center" prop="studentCard" />
+      <el-table-column label="身份证正面照片URL" align="center" prop="idCardFront" show-overflow-tooltip/>
+      <el-table-column label="身份证反面照片URL" align="center" prop="idCardBack" show-overflow-tooltip/>
+      <el-table-column label="学生证照片URL" align="center" prop="studentCard" show-overflow-tooltip/>
       <el-table-column label="信用分(0-100)" align="center" prop="creditScore" />
       <el-table-column label="完成订单总数" align="center" prop="totalOrders" />
       <el-table-column label="状态(0待审核,1已通过,2已拒绝)" align="center" prop="status" />
