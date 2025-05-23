@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.FeedbackMapper">
+    
+    <resultMap type="Feedback" id="FeedbackResult">
+        <result property="id"    column="id"    />
+        <result property="suggestion"    column="suggestion"    />
+        <result property="contact"    column="contact"    />
+        <result property="imagesUrl"    column="images_url"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectFeedbackVo">
+        select id, suggestion, contact, images_url, create_time from feedback
+    </sql>
+
+    <select id="selectFeedbackList" parameterType="Feedback" resultMap="FeedbackResult">
+        <include refid="selectFeedbackVo"/>
+        <where>  
+            <if test="suggestion != null  and suggestion != ''"> and suggestion = #{suggestion}</if>
+            <if test="contact != null  and contact != ''"> and contact = #{contact}</if>
+            <if test="imagesUrl != null  and imagesUrl != ''"> and images_url = #{imagesUrl}</if>
+        </where>
+    </select>
+    
+    <select id="selectFeedbackById" parameterType="Long" resultMap="FeedbackResult">
+        <include refid="selectFeedbackVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertFeedback" parameterType="Feedback" useGeneratedKeys="true" keyProperty="id">
+        insert into feedback
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="suggestion != null and suggestion != ''">suggestion,</if>
+            <if test="contact != null">contact,</if>
+            <if test="imagesUrl != null">images_url,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="suggestion != null and suggestion != ''">#{suggestion},</if>
+            <if test="contact != null">#{contact},</if>
+            <if test="imagesUrl != null">#{imagesUrl},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateFeedback" parameterType="Feedback">
+        update feedback
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="suggestion != null and suggestion != ''">suggestion = #{suggestion},</if>
+            <if test="contact != null">contact = #{contact},</if>
+            <if test="imagesUrl != null">images_url = #{imagesUrl},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFeedbackById" parameterType="Long">
+        delete from feedback where id = #{id}
+    </delete>
+
+    <delete id="deleteFeedbackByIds" parameterType="String">
+        delete from feedback where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
